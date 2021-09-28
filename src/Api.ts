@@ -3,8 +3,8 @@ import { Board, Game, GameStatus, Square, User } from "./types";
 export class Api {
   private static games: Game[] = [];
   private static users: User[] = [
-    { id: 1 }, // Mock user 1
-    { id: 2 }, // Mock user 2
+    { id: 0 }, // Mock user 1
+    { id: 1 }, // Mock user 2
   ];
 
   static createGame(player1Id: number): Game {
@@ -28,7 +28,9 @@ export class Api {
     game.player2 = player2;
   }
 
-  static getGameStatus(game: Game): GameStatus {
+  static getGameStatus(gameId: number): GameStatus {
+    const game = Api.getGame(gameId);
+
     if (!game.player2) return GameStatus.AwaitingPlayer2;
 
     const { board } = game;
@@ -92,12 +94,10 @@ export class Api {
 
   static markSquare(
     gameId: number,
-    player: User,
+    playerId: number,
     [row, col]: [number, number]
   ) {
-    const game = Api.getGame(gameId);
-
-    const status = Api.getGameStatus(game);
+    const status = Api.getGameStatus(gameId);
 
     if (status !== GameStatus.InProgress) {
       throw new Error(
@@ -105,15 +105,15 @@ export class Api {
       );
     }
 
+    const game = Api.getGame(gameId);
     if (game.board[row][col] !== Square.Empty) {
       throw new Error(
         `Mark square cannot be done, game with id ${gameId}, row ${row}, col ${col} is occupied already.`
       );
     }
 
-    if (status === GameStatus.InProgress) {
-      game.board[row][col] = game.player1 === player ? Square.X : Square.O;
-    }
+    const player = Api.getUser(playerId);
+    game.board[row][col] = game.player1 === player ? Square.X : Square.O;
   }
 
   private static getUser(userId: number) {

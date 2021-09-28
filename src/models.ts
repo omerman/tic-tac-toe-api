@@ -1,4 +1,8 @@
-import { ApiModel, ApiModelProperty } from "swagger-express-ts";
+import {
+  ApiModel,
+  ApiModelProperty,
+  SwaggerDefinitionConstant,
+} from "swagger-express-ts";
 
 @ApiModel({
   name: "CreateGameRequest",
@@ -9,7 +13,7 @@ export class CreateGameRequestModel {
   @ApiModelProperty({
     description: "Id of player",
     required: true,
-    example: 1,
+    type: SwaggerDefinitionConstant.NUMBER,
   })
   playerId: number;
 }
@@ -23,6 +27,44 @@ export class CreateGameResponseModel {
   @ApiModelProperty({
     description: "Id of created game",
     required: true,
+    type: SwaggerDefinitionConstant.NUMBER,
   })
   gameId: number;
+}
+
+@ApiModel({
+  name: "JoinGameRequest",
+})
+export class JoinGameRequestModel {
+  static modelName = "JoinGameRequest";
+
+  @ApiModelProperty({
+    description: "Id of player",
+    required: true,
+    type: SwaggerDefinitionConstant.NUMBER,
+  })
+  playerId: number;
+}
+
+@ApiModel({
+  name: "MarkSquareRequest",
+})
+export class MarkSquareRequestModel {
+  static modelName = "MarkSquareRequest";
+
+  @ApiModelProperty({
+    description: "Id of player",
+    required: true,
+    type: SwaggerDefinitionConstant.NUMBER,
+  })
+  playerId: number;
+
+  @ApiModelProperty({
+    description: "Coordinates",
+    required: true,
+    itemType: SwaggerDefinitionConstant.NUMBER,
+    type: SwaggerDefinitionConstant.ARRAY,
+    example: [0, 0],
+  })
+  coords: [number, number];
 }
