@@ -1,7 +1,7 @@
 import { Board, Game, GameStatus, Square, User } from "./types";
 
 export class Api {
-  private static games: Game[];
+  private static games: Game[] = [];
   private static users: User[] = [
     { id: 1 }, // Mock user 1
     { id: 2 }, // Mock user 2

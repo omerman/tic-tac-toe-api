@@ -24,3 +24,11 @@ export interface Game {
   player1: User;
   player2?: User;
 }
+
+export interface CreateGameRequestBody {
+  playerId: number;
+}
+
+export interface CreateGameResponseBody {
+  gameId: number;
+}
