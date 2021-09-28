@@ -47,13 +47,6 @@ server.setConfig((app: express.Application) => {
   );
 });
 
-// server.setErrorConfig((app: express.Application) => {
-//   app.use((_: express.Request, response: express.Response) => {
-//     // console.error(err.stack);
-//     response.status(500).send("Something broke!");
-//   });
-// });
-
 const app = server.build();
 
 app.listen(port);
