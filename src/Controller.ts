@@ -1,4 +1,4 @@
-import { Api } from "./api";
+import { Api } from "./Api";
 import { Request, Response } from "express";
 import {
   controller,
